@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://cpjrnq5r6dy50"]
+
+[ext_resource type="Script" uid="uid://cfh66ngxkbj0k" path="res://GameManager.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://db85occn8epuf" path="res://GridManager.gd" id="1_h2yge"]
+[ext_resource type="Texture2D" uid="uid://c5qbrl38njbvt" path="res://tileset.png" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://dj3k0dkmwd4ag" path="res://MapGenerator.gd" id="4_lquwl"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0xm2m"]
+resource_name = "tileset"
+texture = ExtResource("4_1bvp3")
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+1:0/0 = 0
+1:1/0 = 0
+1:1/0/custom_data_1 = true
+0:1/0 = 0
+0:1/0/custom_data_0 = true
+0:1/0/custom_data_2 = true
+
+[sub_resource type="TileSet" id="TileSet_h2yge"]
+custom_data_layer_0/name = "buildable"
+custom_data_layer_0/type = 1
+custom_data_layer_1/name = "water"
+custom_data_layer_1/type = 1
+custom_data_layer_2/name = "fertile"
+custom_data_layer_2/type = 1
+sources/0 = SubResource("TileSetAtlasSource_0xm2m")
+
+[node name="GameManager" type="Node2D"]
+script = ExtResource("1_0xm2m")
+
+[node name="GridManager" type="Node2D" parent="." node_paths=PackedStringArray("map_generator")]
+script = ExtResource("1_h2yge")
+map_generator = NodePath("../MapGenerator")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_h2yge")
+
+[node name="MapGenerator" type="Node" parent="."]
+script = ExtResource("4_lquwl")
+map_width = 200
